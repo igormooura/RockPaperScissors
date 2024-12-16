@@ -8,7 +8,7 @@ import { useState } from "react";
 
 function App() {
   const [playerHand, setPlayerHand] = useState(null);
-  const [computerHand, setComputerHand] = useState(null)
+  const [computerHand, setComputerHand] = useState(null);
   const [playerScore, setPlayerScore] = useState(0);
   const [computerScore, setComputerScore] = useState(0);
   const [winner, setWinner] = useState(null);
@@ -17,7 +17,7 @@ function App() {
     setPlayerHand(handIndex);
     const randomHand = Math.floor(Math.random() * 3);
     setComputerHand(randomHand);
-      determineWinner(handIndex, randomHand); 
+    determineWinner(handIndex, randomHand);
   };
 
   const ResetOption = () => {
@@ -25,8 +25,8 @@ function App() {
     setPlayerScore(0);
     setPlayerHand(null);
     setComputerHand(null);
-    setWinner(null)
-  }
+    setWinner(null);
+  };
 
   const determineWinner = (player, computer) => {
     if (player === computer) {
@@ -44,42 +44,52 @@ function App() {
     }
   };
 
-  console.log("computer hand aqui" + computerHand)
-  console.log(" a outra hand aqui" + playerHand)
-
   return (
     <main>
       <header>
         <h1>Rock, Paper, Scissors</h1>
       </header>
 
+      
+
       <section className="players-area">
         <div className="player1">
-          <img src={Player} alt="Player" className="user-image" />
           <h2>You</h2>
-          <p>Score: {playerScore}</p>
-          <div className="image-container">
-            <img src={Paper} alt="Paper" className="gaming-image-static" />
-            <img src={Scissors} alt="Scissors" className="gaming-image-static" />
-            <img src={Rock} alt="Rock" className="gaming-image-static" />
-          </div>
+          <img src={Player} alt="Player" className="user-image" />
+          <h3>Score: {playerScore}</h3>
         </div>
 
         <div className="player2">
-          <img src={Computer} alt="Computer" className="computer-image" />
           <h2>Computer</h2>
-          <p>Score: {computerScore}</p>
-          <div className="image-container">
-            <img src={Paper} alt="Paper" className="gaming-image-static"/>
-            <img src={Scissors} alt="Scissors" className="gaming-image-static" />
-            <img src={Rock} alt="Rock" className="gaming-image-static" />
-          </div>
+          <img src={Computer} alt="Computer" className="computer-image" />
+          <h3>Score: {computerScore}</h3>
         </div>
+      </section>
+
+      <section className="selected-area">
+        {playerHand !== null && (
+          <div className="selected-player">
+            <img
+              src={playerHand === 0 ? Rock : playerHand === 1 ? Paper : Scissors}
+              alt="Player Choice"
+              className="selected-image"
+            />
+          </div>
+        )}
+        {computerHand !== null && (
+          <div className="selected-computer">
+            <img
+              src={computerHand === 0 ? Rock : computerHand === 1 ? Paper : Scissors}
+              alt="Computer Choice"
+              className="selected-image"
+            />
+          </div>
+        )}
       </section>
 
       <section className="controls">
         <h2>{winner}</h2>
-        <h2> Make your choice: </h2>
+        <h2>Make your choice:</h2>
         <div className="buttons">
           <button type="button" className="image-button" onClick={() => SelectOption(0)}>
             <img src={Rock} alt="Rock option" className="button-image" />
@@ -93,13 +103,11 @@ function App() {
         </div>
       </section>
 
-    <div className="generalCommand">
-      <button type="button" onClick={ResetOption}>
-        Restart Game
-      </button>
-    </div>
-      
-
+      <div className="generalCommand">
+        <button type="button" onClick={ResetOption}>
+          Restart Game
+        </button>
+      </div>
     </main>
   );
 }
